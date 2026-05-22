@@ -29,23 +29,20 @@
 
 ```text
 ros_final/
-├── src/
-│   ├── car_bot_urdf/                 # 小车、机械臂、夹爪、传感器 URDF 与 Gazebo 仿真配置
-│   │   ├── config/                   # Nav2、控制器、EKF、SLAM 参数
-│   │   ├── launch/                   # Gazebo、导航、总启动文件
-│   │   ├── map/                      # 室内地图
-│   │   ├── meshes/                   # 机器人 STL 模型文件
-│   │   ├── rviz/                     # RViz 配置
-│   │   ├── urdf/                     # 机器人 URDF 文件
-│   │   └── world/                    # Gazebo 世界文件
-│   ├── car_moveit_config/            # MoveIt 运动规划配置
-│   ├── nav2_pure_pursuit_controller/ # Nav2 Pure Pursuit 控制器插件
-│   ├── nav2_sms_behavior/            # Nav2 自定义行为插件示例
-│   └── voice_control/                # 语音识别与语音控制模块
-├── build/                            # colcon 构建目录
-├── install/                          # colcon 安装目录
-├── log/                              # colcon 日志目录
-└── test_voice_control.sh             # 语音控制测试脚本
+└── src/
+    ├── car_bot_urdf/                 # 小车、机械臂、夹爪、传感器 URDF 与 Gazebo 仿真配置
+    │   ├── config/                   # Nav2、控制器、EKF、SLAM 参数
+    │   ├── launch/                   # Gazebo、导航、总启动文件
+    │   ├── map/                      # 室内地图
+    │   ├── meshes/                   # 机器人 STL 模型文件
+    │   ├── rviz/                     # RViz 配置
+    │   ├── urdf/                     # 机器人 URDF 文件
+    │   └── world/                    # Gazebo 世界文件
+    ├── car_moveit_config/            # MoveIt 运动规划配置
+    ├── nav2_pure_pursuit_controller/ # Nav2 Pure Pursuit 控制器插件
+    ├── nav2_sms_behavior/            # Nav2 自定义行为插件示例
+    └── voice_control/                # 语音识别与语音控制模块
+
 ```
 
 ## 环境依赖
