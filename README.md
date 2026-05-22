@@ -213,3 +213,7 @@ Nav2 控制器插件，实现 Pure Pursuit 路径跟踪算法。算法根据机�
 ## 项目效果
 
 本项目实现了一个完整的 ROS2 仿真机器人工作流：从机器人建模、Gazebo 仿真、控制器接入、导航巡航，到语音交互控制与机械臂夹爪仿真，为移动机器人导航和操作任务提供了可复现的仿真实验平台。
+<img width="355" height="270" alt="image" src="https://github.com/user-attachments/assets/80439550-ccea-433b-849e-45567d3a8c71" />
+<img width="609" height="382" alt="image" src="https://github.com/user-attachments/assets/fe408f31-2569-46b2-9b24-3693744c5bd2" />
+<img width="626" height="392" alt="image" src="https://github.com/user-attachments/assets/44d288cc-9354-4bd1-9746-62668409f4e5" />
+
