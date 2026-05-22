@@ -1,0 +1,29 @@
+moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
+
+moveit_simple_controller_manager:
+  controller_names:
+    - arm_controller
+    - gripper_controller
+
+  arm_controller:
+    # 告诉 MoveIt 这是一个关节轨迹控制器
+    type: FollowJointTrajectory
+    # ⚠️【重要修改】必须指定 Action 命名空间，否则连不上
+    action_ns: follow_joint_trajectory
+    # 设为默认，方便规划
+    default: true
+    joints:
+      - joint1
+      - joint2
+      - joint3
+      - joint4
+
+  gripper_controller:
+    # ⚠️【建议修改】改成 FollowJointTrajectory 更稳定
+    # 除非你确定你在 ros2_controllers.yaml 里配置的是 position_controllers/GripperActionController
+    type: FollowJointTrajectory
+    action_ns: follow_joint_trajectory
+    default: false
+    joints:
+      - or_1
+      - or_2

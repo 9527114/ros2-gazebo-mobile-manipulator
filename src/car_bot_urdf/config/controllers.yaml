@@ -1,0 +1,89 @@
+# -------------------------------------------------------------------------
+# 1. Controller Manager 總體配置
+# -------------------------------------------------------------------------
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # 核心更新頻率 (Hz)。建議 50 - 100 Hz
+    
+    # 這裡列出所有需要在啟動時就加載並激活的控制器
+    # 確保這些控制器名稱與 Launch 文件中的 'spawner' 參數一致
+    # 必須包含 joint_state_broadcaster！
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+      
+    diff_cont:
+      type: diff_drive_controller/DiffDriveController
+      
+    arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+      
+    gripper_controller:
+      type: joint_group_position_controller/JointGroupPositionController
+      
+# -------------------------------------------------------------------------
+# 2. 差速驅動控制器 (底盤) 配置
+# -------------------------------------------------------------------------
+diff_cont:
+  ros__parameters:
+    # 確保這些關節名稱與 URDF 中 wheel_..._joint 的名稱完全一致
+    left_wheel_names: ['wheel_lf_joint', 'wheel_lr_joint']
+    right_wheel_names: ['wheel_rf_joint', 'wheel_rr_joint']
+    
+    # 必須與 URDF 中的 <limit> 標籤一致
+    publish_rate: 50.0 
+    wheel_separation: 0.046  # <-- 根據之前分析修正的值 (0.023 - (-0.023))
+    wheel_radius: 0.0325     # <-- 假設您車輪的半徑
+    
+    # 底盤 PID 參數 (用於速度環)
+    # 如果小車抖動或不穩定，請降低 P 值
+    linear:
+      x:
+        has_velocity_limits: true
+        max_velocity: 0.5    # m/s
+        has_acceleration_limits: true
+        max_acceleration: 1.0
+    angular:
+      z:
+        has_velocity_limits: true
+        max_velocity: 1.0    # rad/s
+        has_acceleration_limits: true
+        max_acceleration: 2.0
+    
+# -------------------------------------------------------------------------
+# 3. 機械臂軌跡控制器 (手臂) 配置
+# -------------------------------------------------------------------------
+arm_controller:
+  ros__parameters:
+    # 確保這些關節名稱與 URDF 中 joint... 的名稱完全一致
+    joints:
+      - joint1
+      - joint2
+      - joint3
+      - joint4
+    command_interface: position  # 匹配 URDF 中的 <command_interface name="position"/>
+    state_interface: [position, velocity, effort]
+    
+    # 手臂 PID 參數 (用於位置追蹤)
+    # P 值決定了響應速度，D 值決定了穩定性。通常 P 值會比較高。
+    gains:
+      joint1: {p: 1000.0, i: 0.01, d: 50.0}
+      joint2: {p: 1000.0, i: 0.01, d: 50.0}
+      joint3: {p: 1000.0, i: 0.01, d: 50.0}
+      joint4: {p: 1000.0, i: 0.01, d: 50.0}
+      
+# -------------------------------------------------------------------------
+# 4. 夾爪位置控制器 (末端執行器) 配置
+# -------------------------------------------------------------------------
+gripper_controller:
+  ros__parameters:
+    # 確保這些關節名稱與 URDF 中 or... 的名稱完全一致
+    joints:
+      - or_1
+      - or_2
+    command_interface: position
+    state_interface: [position, velocity]
+    
+    # 夾爪 PID 參數
+    gains:
+      or_1: {p: 500.0, i: 0.0, d: 10.0}
+      or_2: {p: 500.0, i: 0.0, d: 10.0}

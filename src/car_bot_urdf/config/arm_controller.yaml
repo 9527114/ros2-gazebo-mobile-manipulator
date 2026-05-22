@@ -1,0 +1,43 @@
+# This config file is used by ros2_control
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    # 【修改 1】把类型改为 JointTrajectoryController，与机械臂保持一致
+    gripper_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+arm_controller:
+  ros__parameters:
+    joints:
+      - joint1
+      - joint2
+      - joint3
+      - joint4
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+
+# 【修改 2】重写夹爪参数，使其格式与 arm_controller 完全一样
+gripper_controller:
+  ros__parameters:
+    # 注意：这里变成了列表格式的 joints (复数)，而不是原来的 joint (单数)
+    joints:
+      - or_1
+      - or_2
+      # 如果你的 or_2 是完全被动的联动关节，这里也可以只写 or_1
+      # 但为了配合 MoveIt，建议把 SRDF 里的关节都写上
+
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity

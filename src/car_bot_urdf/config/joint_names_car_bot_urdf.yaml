@@ -1,0 +1,1 @@
+controller_joint_names: ['', 'wheel_lf', 'wheel_rf', 'wheel_lr', 'wheel_rr', 'joint1', 'joint2', 'joint3', 'joint4', 'or_1', 'or_2', ]
